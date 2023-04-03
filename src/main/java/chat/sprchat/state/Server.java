@@ -5,8 +5,6 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 import org.springframework.stereotype.Component;
 
-import java.net.InetSocketAddress;
-
 @Component
 public class Server extends WebSocketServer
 {
@@ -38,12 +36,20 @@ public class Server extends WebSocketServer
     @Override
     public void onError(WebSocket webSocket, Exception e)
     {
-
+        System.out.println("[Server]: "+e.getMessage());
     }
 
     @Override
     public void onStart()
     {
-
+        System.out.println(
+                """
+                    
+                    ======================
+                        Server started
+                    ======================
+                    
+                    """
+        );
     }
 }
