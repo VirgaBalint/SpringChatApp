@@ -8,3 +8,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+
+server:
+  address: localhost
+  port: 8080
