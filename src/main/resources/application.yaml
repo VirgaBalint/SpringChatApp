@@ -1,3 +1,4 @@
+#PASS=turandot;URL=jdbc:mysql://95.111.248.108:16603/pm2201_VB;USER=VB
 spring:
   datasource:
     url: ${URL}
