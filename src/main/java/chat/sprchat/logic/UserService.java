@@ -8,19 +8,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService implements UserDetailsService {
-    private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
-
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         return userRepository.findById(1L)      // TODO
-                .orElseThrow(
-                        () -> new UsernameNotFoundException(
-                                String.format(USER_NOT_FOUND_MSG, name)
-                        )
-                );
+            .orElseThrow(
+                () -> new UsernameNotFoundException(
+                        String.format("user with email %s not found", name)
+                )
+            );
     }
 
 
