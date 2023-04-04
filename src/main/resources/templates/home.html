@@ -1,0 +1,60 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" id="main" data-theme="dark" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/pico.min.css}" href="../static/css/pico.classless.css">
+  <title>SpringChat</title>
+
+  <style>
+    a{
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><strong style="font-size: 1.5rem">SpringChat homepage</strong></li>
+        <li sec:authorize="isAuthenticated()">
+          <details role="list">
+            <summary aria-haspopup="listbox">Rooms</summary>
+            <ul role="listbox">
+              <li><a>General</a></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+      <ul>
+        <li><a sec:authorize="isAnonymous()" th:href="@{/login}" href="login.html">Login</a></li>
+        <li><a sec:authorize="isAnonymous()" th:href="@{/register}" href="register.html">Register</a></li>
+        <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">Logout</a></li>
+        <li>
+          <details role="list">
+            <summary aria-haspopup="listbox">Links</summary>
+            <ul role="listbox">
+              <li><a href="https://github.com/kinstadtnerbalint/SpringChatApp">Github</a></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+  </main>
+
+  <footer>
+
+  </footer>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
