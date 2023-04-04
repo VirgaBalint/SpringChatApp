@@ -9,6 +9,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+  session:
+    jdbc:
+      initialize-schema: always
+
 
 server:
   address: localhost
