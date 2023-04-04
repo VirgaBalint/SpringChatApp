@@ -19,7 +19,7 @@
 <body>
 
   <header>
-    <nav>
+    <nav style="vertical-align: sub; height: 0.6rem;">
       <ul>
         <li><strong style="font-size: 1.5rem">SpringChat homepage</strong></li>
         <li sec:authorize="isAuthenticated()">
@@ -48,7 +48,23 @@
   </header>
 
   <main>
-
+    <article id="chatbox">
+      <header>
+        <nav style="height: 0.5rem;">
+          <ul>
+            <li><strong style="font-size: 1.5rem">'chat name'</strong></li>
+          </ul>
+          <ul><li>connected users</li></ul>
+        </nav>
+      </header>
+      <main style="overflow-y: scroll;">
+        
+      </main>
+      <footer>
+        <ul></ul>
+        <ul></ul>
+      </footer>
+    </article>
   </main>
 
   <footer>
