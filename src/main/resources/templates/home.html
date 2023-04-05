@@ -7,18 +7,22 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" th:href="@{/css/pico.min.css}" href="../static/css/pico.classless.css">
+  <link rel="stylesheet" th:href="@{/css/pico.min.css}" href="../static/css/pico.css">
   <title>SpringChat</title>
 
   <style>
     a{
         cursor: pointer;
     }
+    article main{
+
+      overflow-y: scroll;
+    }
   </style>
 </head>
 <body>
 
-  <header>
+  <header class="container" style="margin-bottom: -5rem;">
     <nav style="vertical-align: sub; height: 0.6rem;">
       <ul>
         <li><strong style="font-size: 1.5rem">SpringChat homepage</strong></li>
@@ -47,7 +51,7 @@
     </nav>
   </header>
 
-  <main>
+  <main class="container">
     <article id="chatbox">
       <header>
         <nav style="height: 0.5rem;">
@@ -57,18 +61,29 @@
           <ul><li>connected users</li></ul>
         </nav>
       </header>
-      <main style="overflow-y: scroll;">
-        
+      <main style="max-height: 25rem">
+        <ul>
+          <li>
+            <p>a</p>
+          </li>
+          <li>
+            <p>a</p>
+          </li>
+          <li>
+            <p>a</p>
+          </li>
+          <li>
+            <p>a</p>
+          </li>
+        </ul>
       </main>
-      <footer>
-        <ul></ul>
-        <ul></ul>
+      <footer style="height: 0.5rem;">
+        <a href="#">current time</a>
       </footer>
     </article>
   </main>
 
   <footer>
-
   </footer>
 
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
