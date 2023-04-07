@@ -10,7 +10,6 @@ public class Mappers
     @GetMapping(path = {"/", "", "/home"})
     public String home(Model model)
     {
-
         return "home";
     }
 }

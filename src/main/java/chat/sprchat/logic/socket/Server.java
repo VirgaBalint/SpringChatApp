@@ -1,5 +1,7 @@
 package chat.sprchat.logic.socket;
 
+import chat.sprchat.SprchatApplication;
+import chat.sprchat.state.ConnectedClient;
 import chat.sprchat.state.InetSocket;
 import lombok.val;
 import org.java_websocket.WebSocket;
@@ -37,7 +39,8 @@ public class Server extends WebSocketServer
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake)
     {
-
+        val newClient = new ConnectedClient(webSocket, clientHandshake);
+        SprchatApplication.addConnectedClient(newClient);
     }
 
     @Override

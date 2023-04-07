@@ -1,11 +1,6 @@
 package chat.sprchat.state;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-import lombok.val;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.net.*;
 

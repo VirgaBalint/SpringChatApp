@@ -1,0 +1,11 @@
+a{
+    cursor: pointer;
+}
+main{
+  outline: 1px solid;
+  width: 35rem;
+}
+.chat-box{
+  max-height: 10px;
+  overflow-y: scroll;
+}
