@@ -69,7 +69,7 @@
           <th>'connected users:'</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style="max-height: 200px; overflow-y: auto;">
         <tr th:each="text: ${texts}">
           <td th:text="${text.date}"></td>
           <td th:text="${text.user}"></td>
@@ -78,7 +78,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <th>time</th>
+          <th ><p id="current-time"></p></th>
         </tr>
       </tfoot>
     </table>
@@ -87,6 +87,7 @@
   <footer>
   </footer>
 
+  <script src="../static/js/scripts.js" th:src="/scripts.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

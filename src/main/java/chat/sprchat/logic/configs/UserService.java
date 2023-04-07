@@ -1,6 +1,6 @@
 package chat.sprchat.logic.configs;
 
-import chat.sprchat.logic.orm.UserRepository;
+import chat.sprchat.state.orm.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

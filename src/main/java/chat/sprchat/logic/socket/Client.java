@@ -1,4 +1,4 @@
-package chat.sprchat.logic.orm;
+package chat.sprchat.logic.socket;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;

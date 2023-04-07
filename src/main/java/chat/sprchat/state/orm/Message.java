@@ -1,15 +1,13 @@
-package chat.sprchat.logic.orm;
+package chat.sprchat.state.orm;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 
 @Entity
 @Repository
+@Table(name = "chat_msgs")
 public class Message
 {
     @Id

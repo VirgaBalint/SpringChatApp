@@ -1,4 +1,4 @@
-package chat.sprchat.state;
+package chat.sprchat.state.orm;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
