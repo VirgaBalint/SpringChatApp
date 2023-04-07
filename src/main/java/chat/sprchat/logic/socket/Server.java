@@ -61,7 +61,10 @@ public class Server extends WebSocketServer
     @Override
     public void onMessage(WebSocket webSocket, String s)
     {
-
+        switch(s)
+        {
+            case "#connectedUsers" -> webSocket.send("connectedUsers#" + SprchatApplication.clients.size());
+        }
     }
 
     @Override

@@ -8,7 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" th:href="@{/css/pico.min.css}" href="../static/css/pico.css">
-  <link rel="stylesheet" th:href="" href="../static/css/customStyle.css">
+  <link rel="stylesheet" th:href="@{/css/customStyle.css}" href="../static/css/customStyle.css">
   <title>SpringChat</title>
 </head>
 <body>
@@ -44,16 +44,13 @@
 
   <main class="container">
     <table>
-      <thead>
+      <thead style="vertical-align: middle;">
         <tr>
-          <th>'chat name'</th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th>'connected users:'</th>
+          <th style="font-size: larger; float: left;"><strong>'chat name'</strong></th>
+          <th style="font-size: larger; float: right;">
+            <small>connected users:</small>
+            <small id="connected-users"></small>
+          </th>
         </tr>
       </thead>
       <tbody style="max-height: 200px; overflow-y: auto;">
@@ -74,7 +71,7 @@
   <footer>
   </footer>
 
-  <script src="../static/js/scripts.js" th:src="/scripts.js"></script>
+  <script src="../static/js/scripts.js" th:src="@{/js/scripts.js}"></script>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
