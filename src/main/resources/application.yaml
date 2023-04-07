@@ -12,7 +12,9 @@ spring:
   session:
     jdbc:
       initialize-schema: always
-
+  devtools:
+    restart:
+      enabled: true
 
 server:
   address: localhost

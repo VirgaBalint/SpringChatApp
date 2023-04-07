@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Server extends WebSocketServer
 {
     @EventListener(ApplicationReadyEvent.class)
-    public void CONSOLE()
+    public void CONSOLE() throws InterruptedException
     {
         val scn = new Scanner(System.in);
         while(true)
@@ -25,6 +25,14 @@ public class Server extends WebSocketServer
             val com = scn.nextLine();
             switch(com.toLowerCase())
             {
+                case "server_stop" -> {
+                    this.stop();
+                    System.out.println("[Server]: successfully closed");
+                }
+                case "server_start" -> {
+                    this.start();
+                    System.out.println("[Server]: successfully started");
+                }
             }
         }
     }
