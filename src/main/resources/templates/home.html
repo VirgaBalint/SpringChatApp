@@ -14,15 +14,19 @@
     a{
         cursor: pointer;
     }
-    article main{
-
+    main{
+      outline: 1px solid;
+      width: 35rem;
+    }
+    .chat-box{
+      max-height: 10px;
       overflow-y: scroll;
     }
   </style>
 </head>
 <body>
 
-  <header class="container" style="margin-bottom: -5rem;">
+  <header class="container" >
     <nav style="vertical-align: sub; height: 0.6rem;">
       <ul>
         <li><strong style="font-size: 1.5rem">SpringChat homepage</strong></li>
@@ -52,9 +56,32 @@
   </header>
 
   <main class="container">
-    <section class="check-box">
-
-    </section>
+    <table>
+      <thead>
+        <tr>
+          <th>'chat name'</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>'connected users:'</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="text: ${texts}">
+          <td th:text="${text.date}"></td>
+          <td th:text="${text.user}"></td>
+          <td th:text="${text.msg}"></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>time</th>
+        </tr>
+      </tfoot>
+    </table>
   </main>
 
   <footer>
