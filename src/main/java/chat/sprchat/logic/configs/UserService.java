@@ -17,7 +17,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(1L)      // TODO
             .orElseThrow(
                 () -> new UsernameNotFoundException(
-                        String.format("user with email %s not found", name)
+                    String.format("user with email %s not found", name)
                 )
             );
     }

@@ -12,7 +12,7 @@ import java.util.Set;
 @SpringBootApplication
 public class SprchatApplication 
 {
-
+	public static final List<>
 	public static final Set<ConnectedClient> clients = new HashSet<>();
 	public static void main(String[] args) 
 	{
