@@ -1,6 +1,5 @@
-package chat.sprchat.logic;
+package chat.sprchat.logic.socket;
 
-import chat.sprchat.state.Server;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;

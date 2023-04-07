@@ -1,13 +1,32 @@
-package chat.sprchat.state;
+package chat.sprchat.logic.socket;
 
+import chat.sprchat.state.InetSocket;
+import lombok.val;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+
+import java.util.Scanner;
 
 @Component
 public class Server extends WebSocketServer
 {
+    @EventListener(ApplicationReadyEvent.class)
+    public void CONSOLE()
+    {
+        val scn = new Scanner(System.in);
+        while(true)
+        {
+            val com = scn.nextLine();
+            switch(com.toLowerCase())
+            {
+            }
+        }
+    }
+
     public Server(InetSocket address)
     {
         super(address);

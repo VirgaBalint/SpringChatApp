@@ -1,4 +1,4 @@
-package chat.sprchat.logic;
+package chat.sprchat.logic.orm;
 
 import chat.sprchat.state.User;
 import org.springframework.data.jpa.repository.JpaRepository;
