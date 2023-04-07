@@ -40,13 +40,14 @@ public class Server extends WebSocketServer
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake)
     {
         val newClient = new ConnectedClient(webSocket, clientHandshake);
-        SprchatApplication.addConnectedClient(newClient);
+        SprchatApplication.clients.add(newClient);
     }
 
     @Override
     public void onClose(WebSocket webSocket, int i, String s, boolean b)
     {
-
+        val address = webSocket.getRemoteSocketAddress();
+        SprchatApplication.clients.removeIf(c -> c.getSocket().getRemoteSocketAddress() == address);
     }
 
     @Override

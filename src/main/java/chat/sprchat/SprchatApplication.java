@@ -13,20 +13,7 @@ import java.util.Set;
 public class SprchatApplication 
 {
 
-	private static final Set<ConnectedClient> clients = new HashSet<>();
-	public static void addConnectedClient(ConnectedClient client)
-	{
-		clients.add(client);
-	}
-	public static void removeConnectedClient(ConnectedClient client)
-	{
-		clients.remove(client);
-	}
-	public static Set<ConnectedClient> getClients()
-	{
-		return clients;
-	}
-
+	public static final Set<ConnectedClient> clients = new HashSet<>();
 	public static void main(String[] args) 
 	{
 		ConfigurableApplicationContext context = SpringApplication.run(SprchatApplication.class, args);
