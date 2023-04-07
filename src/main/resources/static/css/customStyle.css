@@ -8,3 +8,7 @@ table{
   max-height: 10px;
   overflow-y: scroll;
 }
+
+button{
+  cursor: pointer;
+}

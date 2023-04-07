@@ -1,5 +1,12 @@
 const connectedUsers = document.getElementById("connected-users")
+const usernameInit = document.getElementById("username")
+const setUsername = document.getElementById("setUsername")
 
+let message = document.getElementById("message")
+let sendMessage = document.getElementById("sendMessage")
+
+
+let username
 // Client
 const socket = new WebSocket("ws://192.168.1.69:8081")
 socket.addEventListener("open", event => {
@@ -38,3 +45,18 @@ setInterval(updateTime, 1000)
 setInterval(() => {                 // Update connected users every 5 seconds
     socket.send("#connectedUsers") 
 }, 5000);
+
+let usernameField = document.getElementById("usernameTag")
+setUsername.addEventListener('click', () => {
+    const inputVal = usernameInit.value
+    if(inputVal.length < 4){
+        alert("Username must be at least 3 characters")
+    }
+    else{
+        username = inputVal
+        console.log("username set:",inputVal);
+        usernameField.textContent = ("Username: " + inputVal)
+        usernameInit.disabled = true
+        setUsername.disabled = true  
+    }
+})
