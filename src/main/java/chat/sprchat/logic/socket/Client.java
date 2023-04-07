@@ -1,4 +1,4 @@
-package chat.sprchat.logic.socket;
+/*package chat.sprchat.logic.socket;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -33,3 +33,5 @@ public class Client extends WebSocketClient
 
     }
 }
+
+ */

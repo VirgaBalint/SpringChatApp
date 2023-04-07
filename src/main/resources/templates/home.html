@@ -42,11 +42,16 @@
     </nav>
   </header>
 
-  <main class="container">
+  <main class="container" >
+    <section class="container">
+      <button role="button" class="contrast outline" style="width: 10rem; float: right;">Set</button>
+      <input id="username" type="text" placeholder="Name" maxlength="30" style="width: 20rem; float: right;" >
+    </section>
     <table>
       <thead style="vertical-align: middle;">
         <tr>
           <th style="font-size: larger; float: left;"><strong>'chat name'</strong></th>
+          <th><strong style="font-size: larger; ">Username:</strong></th>
           <th style="font-size: larger; float: right;">
             <small>connected users:</small>
             <small id="connected-users"></small>
@@ -66,7 +71,7 @@
         </tr>
       </tfoot>
     </table>
-    <form action="post" class="container"a>
+    <form method="post" th:action="@{/message}" action="/message" class="container">
       <div class="grid">
         <input type="text" placeholder="Send a message">
         <button style="width: 50%;" type="submit" class="contrast outline">Send</button>

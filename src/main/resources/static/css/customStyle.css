@@ -1,9 +1,8 @@
 a{
     cursor: pointer;
 }
-main{
+table{
   outline: 1px solid;
-  width: 35rem;
 }
 .chat-box{
   max-height: 10px;
