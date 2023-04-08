@@ -6,9 +6,16 @@ import lombok.Setter;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 
-@Getter @Setter @AllArgsConstructor
+@Getter @Setter
 public class ConnectedClient
 {
-    WebSocket socket;
-    ClientHandshake clientHandshake;
+    private WebSocket socket;
+    private ClientHandshake clientHandshake;
+    private String name;
+
+    public ConnectedClient(WebSocket socket, ClientHandshake clientHandshake)
+    {
+        this.socket = socket;
+        this.clientHandshake = clientHandshake;
+    }
 }
