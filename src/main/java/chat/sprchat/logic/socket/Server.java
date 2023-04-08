@@ -64,6 +64,15 @@ public class Server extends WebSocketServer
         switch(s)
         {
             case "#connectedUsers" -> webSocket.send("connectedUsers#" + SprchatApplication.clients.size());
+            default -> {
+                if(s.startsWith("#setName:"))
+                {
+                    val name = s.substring("#setName:".length());
+                    for(var c: SprchatApplication.clients)
+                        if(c.getSocket() == webSocket)
+                            c.setName(name);
+                }
+            }
         }
     }
 

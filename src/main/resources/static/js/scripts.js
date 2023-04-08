@@ -21,35 +21,39 @@ setUsername.addEventListener('click', () => {               // Set username, con
         usernameInit.disabled = true
         setUsername.disabled = true
         
+        // Client
         socket = new WebSocket("ws://192.168.1.69:8081")
+        socket.addEventListener("open", event => {
+            console.log("Connected to server")
+            socket.send("#connectedUsers")
+            socket.send("#setName:"+username)
+        
+            const time = new Date()
+            const currentTime = time.toLocaleTimeString()
+            document.getElementById("current-time").innerHTML = currentTime
+        })
+        
+        socket.addEventListener("message", event => {
+            console.log("Received message from server:",event.data)
+            
+            const temp = event.data
+            if(temp.startsWith("connectedUsers#")){
+                const msg = event.data.substring("connectedUsers#".length)
+                connectedUsers.textContent = msg
+            }
+        })
+        
+        socket.addEventListener("error", event => {
+            console.error("Server connection error:",event);
+        })
+        socket.addEventListener("close", event => {
+            
+        })
+        
+        setInterval(() => {                 // Update connected users every 5 seconds
+            socket.send("#connectedUsers") 
+        }, 5000);
     }
-})
-
-// Client
-socket.addEventListener("open", event => {
-    console.log("Connected to server")
-    socket.send("#connectedUsers")
-
-    const time = new Date()
-    const currentTime = time.toLocaleTimeString()
-    document.getElementById("current-time").innerHTML = currentTime
-})
-
-socket.addEventListener("message", event => {
-    console.log("Received message from server:",event.data)
-    
-    const temp = event.data
-    if(temp.startsWith("connectedUsers#")){
-        const msg = event.data.substring("connectedUsers#".length)
-        connectedUsers.textContent = msg
-    }
-})
-
-socket.addEventListener("error", event => {
-    console.error("Server connection error:",event);
-})
-socket.addEventListener("close", event => {
-    
 })
 
 function updateTime() {
@@ -59,6 +63,3 @@ function updateTime() {
   }
 setInterval(updateTime, 1000)
 
-setInterval(() => {                 // Update connected users every 5 seconds
-    socket.send("#connectedUsers") 
-}, 5000);
