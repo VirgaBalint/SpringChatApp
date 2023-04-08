@@ -4,6 +4,8 @@ const setUsername = document.getElementById("setUsername")
 
 let message = document.getElementById("message")
 let sendMessage = document.getElementById("sendMessage")
+message.disabled = true
+sendMessage.disabled = true
 
 let socket
 
@@ -20,6 +22,9 @@ setUsername.addEventListener('click', () => {               // Set username, con
         usernameField.textContent = ("Username: " + inputVal)
         usernameInit.disabled = true
         setUsername.disabled = true
+
+        message.disabled = false
+        sendMessage.disabled = false
         
         // Client
         socket = new WebSocket("ws://192.168.1.69:8081")
@@ -48,6 +53,14 @@ setUsername.addEventListener('click', () => {               // Set username, con
         })
         socket.addEventListener("close", event => {
             
+        })
+
+        sendMessage.addEventListener('click', event =>{
+            const time = new Date()
+            const currentTime = time.toLocaleTimeString()
+            let msg = message.value
+            message.value = ""
+            socket.send("#msg:"+msg+":"+currentTime)
         })
         
         setInterval(() => {                 // Update connected users every 5 seconds

@@ -9,7 +9,7 @@ import java.sql.Date;
 @Getter @Setter @AllArgsConstructor
 public class LoadedMessage
 {
-    String name;
+    String user;
     String message;
-    Date sent;
+    Date date;
 }
