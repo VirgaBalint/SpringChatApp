@@ -11,5 +11,5 @@ public class LoadedMessage
 {
     String user;
     String message;
-    Date date;
+    String date;
 }

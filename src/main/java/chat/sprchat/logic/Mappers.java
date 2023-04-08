@@ -12,15 +12,10 @@ import java.security.Principal;
 @Controller
 public class Mappers
 {
-    @PostMapping("/message")
-    public void messageSend(Principal user)
-    {
-
-    }
-
     @GetMapping(path = {"/", "", "/home"})
     public String home(Model model)
     {
+        model.addAttribute("texts", SprchatApplication.loadedMessages);
         return "home";
     }
     @GetMapping("/login")

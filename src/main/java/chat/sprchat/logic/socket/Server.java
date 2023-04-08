@@ -3,6 +3,7 @@ package chat.sprchat.logic.socket;
 import chat.sprchat.SprchatApplication;
 import chat.sprchat.state.ConnectedClient;
 import chat.sprchat.state.InetSocket;
+import chat.sprchat.state.LoadedMessage;
 import lombok.val;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -71,6 +72,20 @@ public class Server extends WebSocketServer
                     for(var c: SprchatApplication.clients)
                         if(c.getSocket() == webSocket)
                             c.setName(name);
+                }
+                else if(s.startsWith("#msg:"))
+                {
+                    val msg = s.substring("#msg:".length());
+                    val data = msg.split(":");
+                    var username = "";
+                    for(var c: SprchatApplication.clients)
+                        if(c.getSocket() == webSocket)
+                            username = c.getName();
+                    val newMessage = new LoadedMessage(username, data[0], data[1]);
+                    SprchatApplication.loadedMessages.add(newMessage);
+
+                    for(var c: SprchatApplication.clients)
+                        c.getSocket().send("");     // TODO
                 }
             }
         }
