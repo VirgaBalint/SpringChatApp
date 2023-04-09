@@ -3,10 +3,7 @@ package chat.sprchat.state.orm;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Repository;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity

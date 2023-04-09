@@ -1,6 +1,9 @@
 const connectedUsers = document.getElementById("connected-users")
 const usernameInit = document.getElementById("username")
 const setUsername = document.getElementById("setUsername")
+const table = document.getElementById('chat')
+const tbody = table.querySelector('tbody')
+tbody.scrollTop = tbody.scrollHeight
 
 let message = document.getElementById("message")
 let sendMessage = document.getElementById("sendMessage")
@@ -49,16 +52,16 @@ setUsername.addEventListener('click', () => {               // Set username, con
                 const jsonObj = JSON.parse(msg)
                 console.log(jsonObj)
 
-                const table = document.getElementById('chat')
                 const existingRows = Array.from(table.querySelectorAll('tr'))
-                const tbody = table.querySelector('tbody')
+                tbody.innerHTML = ''
                 jsonObj.forEach(text => {
                     const existingRow = existingRows.find(row => row.dataset.id === text.id)
                     const tr = document.createElement('tr')
                     tr.dataset.id = text.id
-                    tr.innerHTML = '<td>' + text.date + '</td><td>' + text.user + '</td><td>' + text.message + '</td>'
+                    tr.innerHTML = '<td>' + text.date + '</td><td>' + text.user + '</td><td id="msg">' + text.message + '</td>'
                     table.querySelector('tbody').appendChild(tr)
                 })
+                tbody.scrollTop = tbody.scrollHeight
             }
         })
 
@@ -70,10 +73,21 @@ setUsername.addEventListener('click', () => {               // Set username, con
         })
 
         sendMessage.addEventListener('click', event =>{         // Send message button
-            const time = new Date()
-            let msg = message.value
-            message.value = ""
-            socket.send("#msg:"+msg+":"+time)
+
+            if(username != null){
+                const time = new Date()
+                let msg = message.value
+                if(msg === ''){
+                    alert('You cannot send an empty message')
+                }
+                else{
+                    message.value = ""
+                    socket.send("#msg:"+msg+":"+time)
+                }
+            }
+            else{
+                alert("Please enter a username")
+            }
         })
         
         setInterval(() => {                 // Update connected users every 5 seconds

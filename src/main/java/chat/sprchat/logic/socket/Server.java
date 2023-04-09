@@ -11,13 +11,10 @@ import lombok.val;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import javax.xml.parsers.SAXParser;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
@@ -27,7 +24,7 @@ public class Server extends WebSocketServer
 {
     public static MsgRepo msgRepo;
     @EventListener(ApplicationReadyEvent.class)
-    public void CONSOLE() throws InterruptedException
+    public void CONSOLE() throws InterruptedException   // Unnecessary
     {
         val scn = new Scanner(System.in);
         while(true)
@@ -66,6 +63,10 @@ public class Server extends WebSocketServer
     {
         val newClient = new ConnectedClient(webSocket, clientHandshake);
         SprchatApplication.clients.add(newClient);
+
+        val gson = new Gson();
+        val msgSend = gson.toJson(SprchatApplication.loadedMessages);
+        webSocket.send("#newMsg"+msgSend);
     }
 
     @Override
