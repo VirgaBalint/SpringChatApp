@@ -34,8 +34,7 @@ setUsername.addEventListener('click', () => {               // Set username, con
             socket.send("#setName:"+username)
         
             const time = new Date()
-            const currentTime = time.toLocaleTimeString()
-            document.getElementById("current-time").innerHTML = currentTime
+            document.getElementById("current-time").innerHTML = time.toLocaleTimeString()
         })
         
         socket.addEventListener("message", event => {
@@ -43,8 +42,7 @@ setUsername.addEventListener('click', () => {               // Set username, con
             
             const temp = event.data
             if(temp.startsWith("connectedUsers#")){
-                const msg = event.data.substring("connectedUsers#".length)
-                connectedUsers.textContent = msg
+                connectedUsers.textContent = event.data.substring("connectedUsers#".length)
             }
             if(temp.startsWith("#newMsg")){
                 refreshTable()
@@ -74,8 +72,7 @@ setUsername.addEventListener('click', () => {               // Set username, con
 
 function updateTime() {
     const time = new Date()
-    const currentTime = time.toLocaleTimeString()
-    document.getElementById("current-time").innerHTML = currentTime
+    document.getElementById("current-time").innerHTML = time.toLocaleTimeString()
   }
 setInterval(updateTime, 1000)
 
@@ -83,17 +80,17 @@ function refreshTable() {
     fetch('/getMsg')
         .then(Response => Response.json())
         .then(data => {
-            var tableBody = document.querySelector('#chat tbody')
+            let tableBody = document.querySelector('#chat tbody')
             tableBody.innerHTML = ''
             data.forEach(item => {
-                var row = document.createElement('tr')
-                var dateCell = document.createElement('td')
-                idCell.textContent = item.date
+                let row = document.createElement('tr')
+                let dateCell = document.createElement('td')
+                dateCell.textContent = item.message.getDate()
                 row.appendChild(dateCell)
-                var nameCell = document.createElement('td')
+                let nameCell = document.createElement('td')
                 nameCell.textContent = item.user
                 row.appendChild(nameCell)
-                var msgCell = document.createElement('td')
+                let msgCell = document.createElement('td')
                 msgCell.textContent = item.message
                 row.appendChild(msgCell)
                 tableBody.appendChild(row)
