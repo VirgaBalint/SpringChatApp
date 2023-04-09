@@ -4,6 +4,8 @@ import chat.sprchat.SprchatApplication;
 import chat.sprchat.state.ConnectedClient;
 import chat.sprchat.state.InetSocket;
 import chat.sprchat.state.LoadedMessage;
+import chat.sprchat.state.orm.Message;
+import chat.sprchat.state.orm.MsgRepo;
 import lombok.val;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -83,6 +85,7 @@ public class Server extends WebSocketServer
                             username = c.getName();
                     val newMessage = new LoadedMessage(username, data[0], data[1]);
                     SprchatApplication.loadedMessages.add(newMessage);
+                    SprchatApplication.msgRepo.save(new Message(newMessage.getUser(), newMessage.getDate(), newMessage.getMessage()));
 
                     for(var c: SprchatApplication.clients)
                         c.getSocket().send("#newMsg");
