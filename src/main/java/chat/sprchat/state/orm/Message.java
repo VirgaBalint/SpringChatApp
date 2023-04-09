@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "chat_msgs")
@@ -18,10 +20,10 @@ public class Message
     private Long id;
 
     private String user;
-    private String date;
+    private Date date;
     private String message;
 
-    public Message(String user, String date, String message)
+    public Message(String user, Date date, String message)
     {
         this.user = user;
         this.date = date;

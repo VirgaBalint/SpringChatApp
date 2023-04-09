@@ -6,14 +6,20 @@ import chat.sprchat.state.InetSocket;
 import chat.sprchat.state.LoadedMessage;
 import chat.sprchat.state.orm.Message;
 import chat.sprchat.state.orm.MsgRepo;
+import com.google.gson.Gson;
 import lombok.val;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import javax.xml.parsers.SAXParser;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 @Component
@@ -91,12 +97,22 @@ public class Server extends WebSocketServer
                     for(var c: SprchatApplication.clients)
                         if(c.getSocket() == webSocket)
                             username = c.getName();
-                    val newMessage = new LoadedMessage(username, data[0], data[1]);
+                    LoadedMessage newMessage = null;
+                    try
+                    {
+                        newMessage = new LoadedMessage(username, data[0], new SimpleDateFormat("E MMM dd yyyy HH").parse(data[1]));
+                    }
+                    catch(ParseException e)
+                    {
+                        throw new RuntimeException(e);
+                    }
                     SprchatApplication.loadedMessages.add(newMessage);
                     msgRepo.save(new Message(newMessage.getUser(), newMessage.getDate(), newMessage.getMessage()));
 
+                    val gson = new Gson();
+                    val msgSend = gson.toJson(SprchatApplication.loadedMessages);
                     for(var c: SprchatApplication.clients)
-                        c.getSocket().send("#newMsg");
+                        c.getSocket().send("#newMsg"+msgSend);
                 }
             }
         }

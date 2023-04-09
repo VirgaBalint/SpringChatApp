@@ -45,10 +45,23 @@ setUsername.addEventListener('click', () => {               // Set username, con
                 connectedUsers.textContent = event.data.substring("connectedUsers#".length)
             }
             if(temp.startsWith("#newMsg")){
-                refreshTable()
+                const msg = temp.substring('#newMsg'.length)
+                const jsonObj = JSON.parse(msg)
+                console.log(jsonObj)
+
+                const table = document.getElementById('chat')
+                const existingRows = Array.from(table.querySelectorAll('tr'))
+                const tbody = table.querySelector('tbody')
+                jsonObj.forEach(text => {
+                    const existingRow = existingRows.find(row => row.dataset.id === text.id)
+                    const tr = document.createElement('tr')
+                    tr.dataset.id = text.id
+                    tr.innerHTML = '<td>' + text.date + '</td><td>' + text.user + '</td><td>' + text.message + '</td>'
+                    table.querySelector('tbody').appendChild(tr)
+                })
             }
         })
-        
+
         socket.addEventListener("error", event => {
             console.error("Server connection error:",event);
         })
@@ -56,12 +69,11 @@ setUsername.addEventListener('click', () => {               // Set username, con
             
         })
 
-        sendMessage.addEventListener('click', event =>{
+        sendMessage.addEventListener('click', event =>{         // Send message button
             const time = new Date()
-            const currentTime = time.toLocaleTimeString()
             let msg = message.value
             message.value = ""
-            socket.send("#msg:"+msg+":"+currentTime)
+            socket.send("#msg:"+msg+":"+time)
         })
         
         setInterval(() => {                 // Update connected users every 5 seconds
@@ -75,24 +87,3 @@ function updateTime() {
     document.getElementById("current-time").innerHTML = time.toLocaleTimeString()
   }
 setInterval(updateTime, 1000)
-
-function refreshTable() {
-    fetch('http://localhost:8080/getMsg')
-        .then(response => response.json())
-        .then(data => {
-            const table = document.getElementById('chat')
-            const tbody = table.querySelector('tbody')
-            tbody.innerHTML = ''
-
-            data.forEach(text => {
-                const tr = document.createElement('tr')
-                tr.innerHTML = '<td th:text="${text.date}"></td>\n' +
-                    '          <td th:text="${text.user}"></td>\n' +
-                    '          <td th:text="${text.message}"></td>'
-                tbody.appendChild(tr)
-            })
-        })
-        .catch(error => {
-            console.log(error)
-        })
-}
