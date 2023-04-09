@@ -17,6 +17,6 @@ import java.net.*;
     }
     public InetSocket()
     {
-        super(ip, 8081);
+        super("localhost", 8081);
     }
 }

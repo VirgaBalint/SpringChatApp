@@ -1,5 +1,3 @@
-import $ from '/jquery-3.6.4.min'
-
 const connectedUsers = document.getElementById("connected-users")
 const usernameInit = document.getElementById("username")
 const setUsername = document.getElementById("setUsername")
@@ -29,7 +27,7 @@ setUsername.addEventListener('click', () => {               // Set username, con
         sendMessage.disabled = false
         
         // Client
-        socket = new WebSocket("ws://192.168.1.69:8081")
+        socket = new WebSocket("ws://localhost:8081")
         socket.addEventListener("open", event => {
             console.log("Connected to server")
             socket.send("#connectedUsers")
@@ -79,18 +77,22 @@ function updateTime() {
 setInterval(updateTime, 1000)
 
 function refreshTable() {
-    $.ajax({
-        url: '/getMsg',
-        dataType: 'json',
-        success: function(data){
-            let tableBody = $('#chat tbody')
-            tableBody.empty()
-            $.each(data, function(i, message){
-                let row = $('<tr>').appendTo(tableBody)
-                $('<td>').text(message.date).appendTo(row)
-                $('<td>').text(message.user).appendTo(row)
-                $('<td>').text(message.message).appendTo(row)
+    fetch('http://localhost:8080/getMsg')
+        .then(response => response.json())
+        .then(data => {
+            const table = document.getElementById('chat')
+            const tbody = table.querySelector('tbody')
+            tbody.innerHTML = ''
+
+            data.forEach(text => {
+                const tr = document.createElement('tr')
+                tr.innerHTML = '<td th:text="${text.date}"></td>\n' +
+                    '          <td th:text="${text.user}"></td>\n' +
+                    '          <td th:text="${text.message}"></td>'
+                tbody.appendChild(tr)
             })
-        }
-    })
+        })
+        .catch(error => {
+            console.log(error)
+        })
 }

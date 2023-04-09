@@ -5,16 +5,20 @@ import chat.sprchat.state.LoadedMessage;
 import com.mysql.cj.xdevapi.JsonParser;
 import lombok.val;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class Mappers
@@ -25,6 +29,7 @@ public class Mappers
         model.addAttribute("texts", SprchatApplication.loadedMessages);
         return "home";
     }
+
     @GetMapping("/login")
     public String login()
     {
@@ -36,11 +41,22 @@ public class Mappers
         return "register";
     }
 
-    @GetMapping(path="/getMsg", produces= MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/getMsg")
+    @CrossOrigin(origins = "http://localhost:8080")
     @ResponseBody
-    public String getMsg()
+    public ResponseEntity<List<LoadedMessage>> getMsg()
     {
-        return SprchatApplication.loadedMessages.toString();
+        val headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<>(SprchatApplication.loadedMessages, headers, HttpStatus.OK);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, String>> handleException(Exception ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("message", ex.getMessage());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<>(errorMap, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
