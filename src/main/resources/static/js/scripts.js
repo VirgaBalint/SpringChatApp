@@ -1,3 +1,5 @@
+import $ from '/jquery-3.6.4.min'
+
 const connectedUsers = document.getElementById("connected-users")
 const usernameInit = document.getElementById("username")
 const setUsername = document.getElementById("setUsername")
@@ -77,23 +79,18 @@ function updateTime() {
 setInterval(updateTime, 1000)
 
 function refreshTable() {
-    fetch('/getMsg')
-        .then(Response => Response.json())
-        .then(data => {
-            let tableBody = document.querySelector('#chat tbody')
-            tableBody.innerHTML = ''
-            data.forEach(item => {
-                let row = document.createElement('tr')
-                let dateCell = document.createElement('td')
-                dateCell.textContent = item.message.getDate()
-                row.appendChild(dateCell)
-                let nameCell = document.createElement('td')
-                nameCell.textContent = item.user
-                row.appendChild(nameCell)
-                let msgCell = document.createElement('td')
-                msgCell.textContent = item.message
-                row.appendChild(msgCell)
-                tableBody.appendChild(row)
+    $.ajax({
+        url: '/getMsg',
+        dataType: 'json',
+        success: function(data){
+            let tableBody = $('#chat tbody')
+            tableBody.empty()
+            $.each(data, function(i, message){
+                let row = $('<tr>').appendTo(tableBody)
+                $('<td>').text(message.date).appendTo(row)
+                $('<td>').text(message.user).appendTo(row)
+                $('<td>').text(message.message).appendTo(row)
             })
-        })
+        }
+    })
 }

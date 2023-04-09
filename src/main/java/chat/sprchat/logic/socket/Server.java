@@ -19,6 +19,7 @@ import java.util.Scanner;
 @Component
 public class Server extends WebSocketServer
 {
+    public static MsgRepo msgRepo;
     @EventListener(ApplicationReadyEvent.class)
     public void CONSOLE() throws InterruptedException
     {
@@ -40,11 +41,18 @@ public class Server extends WebSocketServer
         }
     }
 
-    public Server(InetSocket address)
+    public Server(InetSocket address, MsgRepo _msgRepo)
     {
         super(address);
         this.start();
         System.out.println(InetSocket.ip);
+
+        msgRepo = _msgRepo;
+        val msgs = msgRepo.findAll();
+        for(var msg: msgs)
+        {
+            SprchatApplication.loadedMessages.add(new LoadedMessage(msg.getUser(),msg.getMessage(), msg.getDate()));
+        }
     }
 
     @Override
@@ -85,7 +93,7 @@ public class Server extends WebSocketServer
                             username = c.getName();
                     val newMessage = new LoadedMessage(username, data[0], data[1]);
                     SprchatApplication.loadedMessages.add(newMessage);
-                    SprchatApplication.msgRepo.save(new Message(newMessage.getUser(), newMessage.getDate(), newMessage.getMessage()));
+                    msgRepo.save(new Message(newMessage.getUser(), newMessage.getDate(), newMessage.getMessage()));
 
                     for(var c: SprchatApplication.clients)
                         c.getSocket().send("#newMsg");

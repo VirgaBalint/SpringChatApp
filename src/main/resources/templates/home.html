@@ -55,7 +55,7 @@
       <button id="setUsername" role="button" class="contrast outline" style="width: 10rem; float: right;">Set</button>
       <input id="username" type="text" placeholder="Name" maxlength="30" style="width: 20rem; float: right;" >
     </section>
-    <table>
+    <table id="chat">
       <thead style="vertical-align: middle;">
         <tr>
           <th style="font-size: larger; float: left;"><strong>'chat name'</strong></th>
@@ -88,7 +88,8 @@
   <footer>
   </footer>
 
-  <script src="../static/js/scripts.js" th:inline="javascript" th:src="@{/js/scripts.js}"></script>
+  <script src="../static/js/jquery-3.6.4.min.js"></script>
+  <script type="application/javascript" src="../static/js/scripts.js" th:inline="javascript" th:src="@{/js/scripts.js}"></script>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

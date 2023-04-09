@@ -19,22 +19,11 @@ import java.util.Set;
 @SpringBootApplication
 public class SprchatApplication
 {
-	public static MsgRepo msgRepo;
 	public static final List<LoadedMessage> loadedMessages = new ArrayList<>();
 	public static final Set<ConnectedClient> clients = new HashSet<>();
 
 	public static void main(String[] args)
 	{
 		ConfigurableApplicationContext context = SpringApplication.run(SprchatApplication.class, args);
-	}
-
-	@EventListener(ApplicationReadyEvent.class)
-	public void msgInit()
-	{
-		val msgs = msgRepo.findAll();
-		for(var msg: msgs)
-		{
-			loadedMessages.add(new LoadedMessage(msg.getUser(),msg.getMessage(), msg.getDate()));
-		}
 	}
 }
