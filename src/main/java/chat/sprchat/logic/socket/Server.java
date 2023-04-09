@@ -85,7 +85,7 @@ public class Server extends WebSocketServer
                     SprchatApplication.loadedMessages.add(newMessage);
 
                     for(var c: SprchatApplication.clients)
-                        c.getSocket().send("");     // TODO
+                        c.getSocket().send("#newMsg");
                 }
             }
         }

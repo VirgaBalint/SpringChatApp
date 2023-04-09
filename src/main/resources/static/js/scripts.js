@@ -16,7 +16,7 @@ setUsername.addEventListener('click', () => {               // Set username, con
     if(inputVal.length < 4){
         alert("Username must be at least 3 characters")
     }
-    else{
+    else {
         username = inputVal
         console.log("username set:",inputVal);
         usernameField.textContent = ("Username: " + inputVal)
@@ -45,6 +45,9 @@ setUsername.addEventListener('click', () => {               // Set username, con
             if(temp.startsWith("connectedUsers#")){
                 const msg = event.data.substring("connectedUsers#".length)
                 connectedUsers.textContent = msg
+            }
+            if(temp.startsWith("#newMsg")){
+                refreshTable()
             }
         })
         
@@ -76,3 +79,24 @@ function updateTime() {
   }
 setInterval(updateTime, 1000)
 
+function refreshTable() {
+    fetch('/getMsg')
+        .then(Response => Response.json())
+        .then(data => {
+            var tableBody = document.querySelector('#chat tbody')
+            tableBody.innerHTML = ''
+            data.forEach(item => {
+                var row = document.createElement('tr')
+                var dateCell = document.createElement('td')
+                idCell.textContent = item.date
+                row.appendChild(dateCell)
+                var nameCell = document.createElement('td')
+                nameCell.textContent = item.user
+                row.appendChild(nameCell)
+                var msgCell = document.createElement('td')
+                msgCell.textContent = item.message
+                row.appendChild(msgCell)
+                tableBody.appendChild(row)
+            })
+        })
+}
