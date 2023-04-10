@@ -23,26 +23,6 @@ import java.util.Scanner;
 public class Server extends WebSocketServer
 {
     public static MsgRepo msgRepo;
-    @EventListener(ApplicationReadyEvent.class)
-    public void CONSOLE() throws InterruptedException   // Unnecessary
-    {
-        val scn = new Scanner(System.in);
-        while(true)
-        {
-            val com = scn.nextLine();
-            switch(com.toLowerCase())
-            {
-                case "server_stop" -> {
-                    this.stop();
-                    System.out.println("[Server]: successfully closed");
-                }
-                case "server_start" -> {
-                    this.start();
-                    System.out.println("[Server]: successfully started");
-                }
-            }
-        }
-    }
 
     public Server(InetSocket address, MsgRepo _msgRepo)
     {
