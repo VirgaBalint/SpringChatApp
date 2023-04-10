@@ -26,4 +26,7 @@ data class LoadedMessage(
     fun setMessage(_message: String){
         message = _message
     }
+    fun getId(): Long{
+        return id
+    }
 }

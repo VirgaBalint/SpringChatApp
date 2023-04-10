@@ -1,7 +1,6 @@
 package chat.sprchat.state.orm;
 
 import jakarta.persistence.*;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
@@ -9,7 +8,6 @@ import java.util.Date;
 @Entity
 @Table(name = "chat_msgs")
 @NoArgsConstructor
-@Getter
 public class Message
 {
     @Id
@@ -25,5 +23,25 @@ public class Message
         this.user = user;
         this.date = date;
         this.message = message;
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public String getUser()
+    {
+        return user;
+    }
+
+    public Date getDate()
+    {
+        return date;
+    }
+
+    public String getMessage()
+    {
+        return message;
     }
 }

@@ -60,7 +60,12 @@
           <td th:text="${text.date}"></td>
           <td th:text="${text.user}"></td>
           <td id="msg" th:text="${text.message}"></td>
-          <td sec:authorize="hasAuthority('admin')"></td>
+          <td sec:authorize="hasAuthority('ROLE_ADMIN')">
+            <form method="post" th:action="@{/msg-delete/${text.id}}">
+              <input type="hidden" name="text_id" th:value="${text.id}">
+              <input id="delete" type="submit" role="button" value="X">
+            </form>
+          </td>
         </tr>
       </tbody>
       <tfoot>

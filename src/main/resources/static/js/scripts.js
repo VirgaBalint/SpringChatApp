@@ -58,8 +58,14 @@ setUsername.addEventListener('click', () => {               // Set username, con
                     const existingRow = existingRows.find(row => row.dataset.id === text.id)
                     const tr = document.createElement('tr')
                     tr.dataset.id = text.id
-                    tr.innerHTML = '<td>' + text.date + '</td><td>' + text.user + '</td><td id="msg">' + text.message + '</td>'
+                    tr.innerHTML = '<td>' + text.date + '</td><td>' + text.user + '</td><td id="msg">' + text.message + '</td>'+
+                        '<td sec:authorize="hasAuthority(\'ROLE_ADMIN\')">'+
+                        '<form method="post" th:action="@{/msg-delete/${text.id}}">'+
+                        '<input type="hidden" name="text_id" th:value="${text.id}">'+
+                        '<input id="delete" type="submit" role="button" value="X">'+
+                        '</form></td>'
                     table.querySelector('tbody').appendChild(tr)
+
                 })
                 tbody.scrollTop = tbody.scrollHeight
             }
@@ -70,6 +76,11 @@ setUsername.addEventListener('click', () => {               // Set username, con
         })
         socket.addEventListener("close", event => {
             
+        })
+
+        const msgDelete = document.getElementById("delete")
+        msgDelete.addEventListener("click", () => {
+            socket.send("#delete")
         })
 
         sendMessage.addEventListener('click', event =>{         // Send message button

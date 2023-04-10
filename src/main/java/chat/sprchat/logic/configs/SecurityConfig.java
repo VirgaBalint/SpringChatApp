@@ -14,7 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig
 {
-
     @Autowired
     private UserService userDetailsService;
 
@@ -23,6 +22,7 @@ public class SecurityConfig
         http
             .authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/", "/connected-users", "/home/**", "/register", "/error", "/login/**", "/css/**", "/js/**").permitAll()
+                .requestMatchers("/msg-delete/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin((form) -> form

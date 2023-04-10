@@ -1,0 +1,80 @@
+* a{
+  user-select: none;
+  cursor: pointer;
+}
+ul:hover a {
+  opacity: .5;
+}
+ul:hover a:hover {
+  opacity: 1;
+  color: #000;
+  box-shadow: 0 2px 0 0 currentcolor;
+}
+ul:hover a{
+  transition: .25s ease;
+}
+
+body{
+  background-color: initial;
+}
+#nav-links a{
+  color: #d3d3d3;
+}
+#nav-links ion-icon{
+  margin: -0.1rem;
+  vertical-align: sub;
+  margin-left: 1.5rem;
+}
+nav{
+  margin-bottom: -2rem;
+}
+nav strong{
+  vertical-align: sub;
+}
+nav a{
+  margin-left: 1.5rem;
+  vertical-align: sub;
+}
+.dropdown ion-icon{
+  padding-top: 0.42rem;
+  position: page;
+}
+
+#about span{
+  width: 120%;
+  display: inline-flex;
+}
+#about{
+  cursor: pointer;
+}
+.login{
+  margin: auto;
+  width: 50%;
+  outline: .3rem solid;
+  outline-color: #0c96bf;
+  outline-offset: 7px;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+
+}
+.login h3{
+  text-align: center;
+  font-size: 1.7rem;
+}
+.login input{
+  place-content: center;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+}
+.login button{
+  width: 50%;
+  margin-bottom: -1rem;
+}
+footer{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

@@ -35,15 +35,22 @@ fun handleMessage(websocket: WebSocket, s: String, msgRepo: MsgRepo)
                     if (c.getSocket() == websocket)
                         username = c.getName()
 
+                val message = Message(username,
+                        SimpleDateFormat("E MMM dd yyyy HH").parse(data[1]),
+                        data.get(0))
                 val newMessage= LoadedMessage(
-                        username, data.get(0),
-                        SimpleDateFormat("E MMM dd yyyy HH").parse(data[1]))
+                        message.user, message.message,
+                        message.date, message.id)
+                msgRepo.save(message)
+
                 loadedMessages.add(newMessage)
-                msgRepo.save(Message(
-                        newMessage.getUser(),
-                        newMessage.getDate(),
-                        newMessage.getMessage()
-                ))
+                val gson = Gson()
+                val msgSend = gson.toJson(loadedMessages)
+                for(c in clients)
+                    c.getSocket().send("#newMsg$msgSend")
+            }
+            else if(s.startsWith("#delete"))
+            {
                 val gson = Gson()
                 val msgSend = gson.toJson(loadedMessages)
                 for(c in clients)

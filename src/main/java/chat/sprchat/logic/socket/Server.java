@@ -6,6 +6,7 @@ import chat.sprchat.state.ConnectedClient;
 import chat.sprchat.state.InetSocket;
 import chat.sprchat.state.LoadedMessage;
 import chat.sprchat.state.orm.MsgRepo;
+import chat.sprchat.state.orm.UserRepository;
 import com.google.gson.Gson;
 import lombok.val;
 import org.java_websocket.WebSocket;
@@ -17,14 +18,15 @@ import org.springframework.stereotype.Component;
 public class Server extends WebSocketServer
 {
     public static MsgRepo msgRepo;
-
-    public Server(InetSocket address, MsgRepo _msgRepo)
+    public static UserRepository userRepo;
+    public Server(InetSocket address, MsgRepo _msgRepo, UserRepository _userRepo)
     {
         super(address);
         this.start();
         System.out.println(InetSocket.ip);
 
         msgRepo = _msgRepo;
+        userRepo = _userRepo;
         val msgs = msgRepo.findAll();
         for(var msg: msgs)
             SprchatApplication.loadedMessages.add(new LoadedMessage(
@@ -53,6 +55,7 @@ public class Server extends WebSocketServer
     @Override
     public void onMessage(WebSocket webSocket, String s)
     {
+        System.out.println(webSocket.getRemoteSocketAddress()+": "+ s);
         UtilKt.handleMessage(webSocket, s, msgRepo);
     }
 
