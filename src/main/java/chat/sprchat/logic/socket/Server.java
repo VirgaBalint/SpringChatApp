@@ -1,23 +1,18 @@
 package chat.sprchat.logic.socket;
 
 import chat.sprchat.SprchatApplication;
+import chat.sprchat.logic.util.UtilKt;
 import chat.sprchat.state.ConnectedClient;
 import chat.sprchat.state.InetSocket;
 import chat.sprchat.state.LoadedMessage;
-import chat.sprchat.state.orm.Message;
 import chat.sprchat.state.orm.MsgRepo;
 import com.google.gson.Gson;
 import lombok.val;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Scanner;
+import chat.sprchat.logic.util.UtilKt.*;
 
 @Component
 public class Server extends WebSocketServer
@@ -33,9 +28,7 @@ public class Server extends WebSocketServer
         msgRepo = _msgRepo;
         val msgs = msgRepo.findAll();
         for(var msg: msgs)
-        {
             SprchatApplication.loadedMessages.add(new LoadedMessage(msg.getUser(),msg.getMessage(), msg.getDate()));
-        }
     }
 
     @Override
@@ -59,44 +52,7 @@ public class Server extends WebSocketServer
     @Override
     public void onMessage(WebSocket webSocket, String s)
     {
-        switch(s)
-        {
-            case "#connectedUsers" -> webSocket.send("connectedUsers#" + SprchatApplication.clients.size());
-            default -> {
-                if(s.startsWith("#setName:"))
-                {
-                    val name = s.substring("#setName:".length());
-                    for(var c: SprchatApplication.clients)
-                        if(c.getSocket() == webSocket)
-                            c.setName(name);
-                }
-                else if(s.startsWith("#msg:"))
-                {
-                    val msg = s.substring("#msg:".length());
-                    val data = msg.split(":");
-                    var username = "";
-                    for(var c: SprchatApplication.clients)
-                        if(c.getSocket() == webSocket)
-                            username = c.getName();
-                    LoadedMessage newMessage = null;
-                    try
-                    {
-                        newMessage = new LoadedMessage(username, data[0], new SimpleDateFormat("E MMM dd yyyy HH").parse(data[1]));
-                    }
-                    catch(ParseException e)
-                    {
-                        throw new RuntimeException(e);
-                    }
-                    SprchatApplication.loadedMessages.add(newMessage);
-                    msgRepo.save(new Message(newMessage.getUser(), newMessage.getDate(), newMessage.getMessage()));
-
-                    val gson = new Gson();
-                    val msgSend = gson.toJson(SprchatApplication.loadedMessages);
-                    for(var c: SprchatApplication.clients)
-                        c.getSocket().send("#newMsg"+msgSend);
-                }
-            }
-        }
+        UtilKt.handleMessage(webSocket, s, msgRepo);
     }
 
     @Override
