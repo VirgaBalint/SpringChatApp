@@ -12,7 +12,6 @@ import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 import org.springframework.stereotype.Component;
-import chat.sprchat.logic.util.UtilKt.*;
 
 @Component
 public class Server extends WebSocketServer
@@ -28,7 +27,9 @@ public class Server extends WebSocketServer
         msgRepo = _msgRepo;
         val msgs = msgRepo.findAll();
         for(var msg: msgs)
-            SprchatApplication.loadedMessages.add(new LoadedMessage(msg.getUser(),msg.getMessage(), msg.getDate()));
+            SprchatApplication.loadedMessages.add(new LoadedMessage(
+                    msg.getUser(),msg.getMessage(), msg.getDate(), msg.getId())
+            );
     }
 
     @Override

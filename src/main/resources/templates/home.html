@@ -27,9 +27,6 @@
         </li>
       </ul>
       <ul>
-        <li><a sec:authorize="isAnonymous()" th:href="@{/login}" href="login.html">Login</a></li>
-        <li><a sec:authorize="isAnonymous()" th:href="@{/register}" href="register.html">Register</a></li>
-        <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">Logout</a></li>
         <li>
           <details role="list">
             <summary aria-haspopup="listbox">Links</summary>
@@ -63,6 +60,7 @@
           <td th:text="${text.date}"></td>
           <td th:text="${text.user}"></td>
           <td id="msg" th:text="${text.message}"></td>
+          <td sec:authorize="hasAuthority('admin')"></td>
         </tr>
       </tbody>
       <tfoot>

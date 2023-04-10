@@ -5,7 +5,8 @@ import java.util.*
 data class LoadedMessage(
         private var user: String,
         private var message: String,
-        private var date: Date
+        private var date: Date,
+        private val id: Long
 ){
     fun getUser(): String{
         return user

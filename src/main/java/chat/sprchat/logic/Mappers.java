@@ -23,6 +23,11 @@ import java.util.Map;
 @Controller
 public class Mappers
 {
+    @GetMapping("/admin")
+    public String admin()
+    {
+        return "login";
+    }
     @GetMapping(path = {"/", "", "/home"})
     public String home(Model model)
     {
