@@ -3,7 +3,7 @@
 
 picoCSS for the frontend look
 
-bit of JS action
+with a bit of kotlin and JS action
 
 <p>
 testable on localhost:8080<br>
