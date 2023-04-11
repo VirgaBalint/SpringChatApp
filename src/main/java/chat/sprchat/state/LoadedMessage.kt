@@ -6,7 +6,6 @@ data class LoadedMessage(
         private var user: String,
         private var message: String,
         private var date: Date,
-        private val id: Long
 ){
     fun getUser(): String{
         return user
@@ -25,8 +24,5 @@ data class LoadedMessage(
     }
     fun setMessage(_message: String){
         message = _message
-    }
-    fun getId(): Long{
-        return id
     }
 }

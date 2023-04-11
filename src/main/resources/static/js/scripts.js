@@ -58,9 +58,8 @@ setUsername.addEventListener('click', () => {               // Set username, con
                     const existingRow = existingRows.find(row => row.dataset.id === text.id)
                     const tr = document.createElement('tr')
                     tr.dataset.id = text.id
-                    tr.innerHTML = '<td>' + text.date + '</td><td>' + text.user + '</td><td id="msg">' + text.message + '</td>'+
+                    tr.innerHTML = '<td>' + text.date + '</td><td>' + text.user + '</td><td id="msg">' + text.message + '</td>'
                     table.querySelector('tbody').appendChild(tr)
-
                 })
                 tbody.scrollTop = tbody.scrollHeight
             }
@@ -73,13 +72,7 @@ setUsername.addEventListener('click', () => {               // Set username, con
             
         })
 
-        const msgDelete = document.getElementById("delete")
-        msgDelete.addEventListener("click", () => {
-            socket.send("#delete")
-        })
-
         sendMessage.addEventListener('click', event =>{         // Send message button
-
             if(username != null){
                 const time = new Date()
                 let msg = message.value
@@ -87,6 +80,7 @@ setUsername.addEventListener('click', () => {               // Set username, con
                     alert('You cannot send an empty message')
                 }
                 else{
+                    console.log(username ,"Sending message")
                     message.value = ""
                     socket.send("#msg:"+msg+":"+time)
                 }

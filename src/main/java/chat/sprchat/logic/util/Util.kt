@@ -40,7 +40,7 @@ fun handleMessage(websocket: WebSocket, s: String, msgRepo: MsgRepo)
                         data.get(0))
                 val newMessage= LoadedMessage(
                         message.user, message.message,
-                        message.date, message.id)
+                        message.date)
                 msgRepo.save(message)
 
                 loadedMessages.add(newMessage)

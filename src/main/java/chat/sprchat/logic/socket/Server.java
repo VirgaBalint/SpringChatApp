@@ -30,7 +30,7 @@ public class Server extends WebSocketServer
         val msgs = msgRepo.findAll();
         for(var msg: msgs)
             SprchatApplication.loadedMessages.add(new LoadedMessage(
-                    msg.getUser(),msg.getMessage(), msg.getDate(), msg.getId())
+                    msg.getUser(),msg.getMessage(), msg.getDate())
             );
     }
 
