@@ -59,11 +59,6 @@ setUsername.addEventListener('click', () => {               // Set username, con
                     const tr = document.createElement('tr')
                     tr.dataset.id = text.id
                     tr.innerHTML = '<td>' + text.date + '</td><td>' + text.user + '</td><td id="msg">' + text.message + '</td>'+
-                        '<td sec:authorize="hasAuthority(\'ROLE_ADMIN\')">'+
-                        '<form method="post" th:action="@{/msg-delete/${text.id}}">'+
-                        '<input type="hidden" name="text_id" th:value="${text.id}">'+
-                        '<input id="delete" type="submit" role="button" value="X">'+
-                        '</form></td>'
                     table.querySelector('tbody').appendChild(tr)
 
                 })

@@ -18,13 +18,16 @@
       <ul>
         <li><strong style="font-size: 1.5rem">SpringChat homepage</strong></li>
         <li>
-          <details role="list">
+          <details role="list" sec:authorize="isAuthenticated()">
             <summary aria-haspopup="listbox">Rooms</summary>
             <ul role="listbox">
               <li><a>General</a></li>
             </ul>
           </details>
         </li>
+        <li><form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()" id="logout">
+          <input type="submit" role="button" class="contrast outline" value="Logout" >
+        </form></li>
       </ul>
       <ul>
         <li>
@@ -60,12 +63,6 @@
           <td th:text="${text.date}"></td>
           <td th:text="${text.user}"></td>
           <td id="msg" th:text="${text.message}"></td>
-          <td sec:authorize="hasAuthority('ROLE_ADMIN')">
-            <form method="post" th:action="@{/msg-delete/${text.id}}">
-              <input type="hidden" name="text_id" th:value="${text.id}">
-              <input id="delete" type="submit" role="button" value="X">
-            </form>
-          </td>
         </tr>
       </tbody>
       <tfoot>

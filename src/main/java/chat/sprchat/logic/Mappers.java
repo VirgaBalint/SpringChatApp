@@ -3,7 +3,6 @@ package chat.sprchat.logic;
 import chat.sprchat.SprchatApplication;
 import chat.sprchat.logic.socket.Server;
 import chat.sprchat.state.LoadedMessage;
-import chat.sprchat.state.orm.MsgRepo;
 import lombok.val;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -65,5 +64,10 @@ public class Mappers
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity<>(errorMap, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping(path={"/logout"})
+    public String logoutPage() {
+        return "redirect:/home";
     }
 }
